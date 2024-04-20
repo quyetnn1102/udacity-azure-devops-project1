@@ -1,12 +1,13 @@
 {
   "if": {
-    "allOf": [
-      {
-        "value": "[empty(field('tags'))]",
-        "equals": "true"
+        "allOf": [
+          {
+            "field": "[concat('tags[', parameters('tagName'), ']')]",
+            "notEquals": "[parameters('tagValue')]"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
       }
-  ]},
-  "then": {
-    "effect": "deny"
-  }
 }
