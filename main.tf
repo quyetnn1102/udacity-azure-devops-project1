@@ -35,8 +35,32 @@ resource "azurerm_network_security_group" "main" {
   resource_group_name = azurerm_resource_group.main.name
 
   security_rule {
-    name                       = "AllowOutboundSameSubnetVms"
+    name                       = "DenyInternetInboundTraffic"
     priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Deny"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "Internet"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "AllowInboundSameVNet"
+    priority                   = 200
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
+  }
+
+  security_rule {
+    name                       = "AllowOutboundSameVNet"
+    priority                   = 300
     direction                  = "Outbound"
     access                     = "Allow"
     protocol                   = "*"
@@ -47,25 +71,13 @@ resource "azurerm_network_security_group" "main" {
   }
 
   security_rule {
-    name                       = "AllowInboundSameSubnetVms"
-    priority                   = 110
+    name                       = "AllowHTTPFromLoadBalancer"
+    priority                   = 400
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
-  }
-
-  security_rule {
-    name                       = "DenyInboundInternet"
-    priority                   = 120
-    direction                  = "Inbound"
-    access                     = "Deny"
-    protocol                   = "*"
-    source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "80"
     source_address_prefix      = "Internet"
     destination_address_prefix = "*"
   }

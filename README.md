@@ -117,8 +117,13 @@ terraform show
 
 
 Azure Portal Azuredevops resource created by terraform
+
 ✔️ View in Azure Portal
 ![alt text](./images/azureportaloutput.png)
+
+Network security rules:
+
+![alt text](./images/nsgsecurityrules.png)
 
 
 5. Destroy infrastructure (when completed) using `clean_resources.sh` to delete all resources except Azuredevops resource group
