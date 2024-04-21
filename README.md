@@ -78,7 +78,7 @@ In vars.tf, the description and value is assigned in the following manner:
 ```
 variable "prefix" {
   description = "The prefix which should be used for all resources in this example"
-  default = "azure-devops-project1"
+  default = "quyetnn-project1"
 }
 ```
 
@@ -121,11 +121,23 @@ Azure Portal Azuredevops resource created by terraform
 ![alt text](images\azureportaloutput.png)
 
 
-5. Destroy infrastructure (when completed)
+5. Destroy infrastructure (when completed) using `clean_resources.sh` to delete all resources except Azuredevops resource group
 
 ```bash 
-terraform destroy
+terraform state list | while read line
+do 
+if [[ $line == azurerm_resource_group* ]]; then
+echo $line " is a resource group and will not be deleted!"
+else
+echo "deleting: " $line
+terraform destroy -target $line -auto-approve
+fi
+done
 ```
+Using `terraform state list` command to skip destroying azurerm_resource_group which lab user can not delete it.
+
+![alt text](images\terraform_destroy_resource.png)
+
 
 6. Delete images(when completed)
 
