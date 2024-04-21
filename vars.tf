@@ -1,35 +1,35 @@
 variable "prefix" {
   description = "The prefix which should be used for all resources in this example"
-  default = "azure-devops-project1"
+  default = "quyetnn-project1"
+}
+
+variable "project_name"{
+  description = "The project_name should be used for all resources in this example"
+  default = "Project1-IaC"
 }
 
 variable "location" {
   description = "The Azure Region in which all resources in this example should be created."
-  default = "East US"
+  default = "East US" 
 }
 
-variable "username" {
-  description = "The VM users name."
-  default = "fpt-quyetnn"
+variable "username"{
+  default = "quyetnn"
 }
 
-variable "password" {
-  description = "The VM users password:"
-  sensitive = true
+variable "password"{
+  default= "Fpt@123"
 }
 
-variable "number_of_vms" {
-  description = "The number of Virtual Machines to be deployed."
-  type        = number
-  default     = "2"
+variable "server_names"{
+  type = list
+  default = ["uat","int"]
 }
 
-variable "packer_image" {
-  description = "The ID of the image created by packer tool."
-  default = "/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311/resourceGroups/Azuredevops/providers/Microsoft.Compute/images/Ubuntu1804Image"
+variable "packerImageId"{
+  default = "/subscriptions/850c12f5-152f-4692-a8e9-2a5d3b9f39db/resourceGroups/Azuredevops/providers/Microsoft.Compute/images/MyPackerImage"
 }
 
-variable "subscription" {
-  description = "The subscription for which the resources are going to be deployed."
-  default = "/subscriptions/e2c7cd99-c3c5-4a90-9109-02e7d50f8311"
+variable "vm_count"{
+  default = "2"
 }
