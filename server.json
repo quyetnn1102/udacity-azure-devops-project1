@@ -18,7 +18,7 @@
 		"azure_tags": {
 			"project-name": "Project1-IaC"
 		},
-		"location": "East US",
+		"location": "South Central US",
 		"vm_size": "Standard_B1s"		
 	}],
 	"provisioners": [{

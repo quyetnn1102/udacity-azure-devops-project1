@@ -10,7 +10,7 @@ variable "project_name"{
 
 variable "location" {
   description = "The Azure Region in which all resources in this example should be created."
-  default = "East US" 
+  default = "South Central US" 
 }
 
 variable "username"{
@@ -27,7 +27,7 @@ variable "server_names"{
 }
 
 variable "packerImageId"{
-  default = "/subscriptions/850c12f5-152f-4692-a8e9-2a5d3b9f39db/resourceGroups/Azuredevops/providers/Microsoft.Compute/images/MyPackerImage"
+  default = "/subscriptions/df56a173-611b-429d-901a-af369d7d59b5/resourceGroups/Azuredevops/providers/Microsoft.Compute/images/MyPackerImage"
 }
 
 variable "vm_count"{

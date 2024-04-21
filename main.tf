@@ -6,6 +6,14 @@ provider "azurerm" {
 resource "azurerm_resource_group" "main" {
   name     = "Azuredevops"
   location = var.location
+  # Keep existing tag
+  tags = {
+    DeploymentId = "258049"
+    LaunchId     = "1346"
+    LaunchType   = "ON_DEMAND_LAB"
+    TemplateId   = "1181"
+    TenantId     = "203"
+  }
 }
 
 # Create a availabity set for virtual machines
@@ -27,9 +35,20 @@ resource "azurerm_network_security_group" "main" {
   resource_group_name = azurerm_resource_group.main.name
 
   security_rule {
-    name                       = "AllowVnetInBound"
-    description                = "Allow access to other VMs on the subnet"
-    priority                   = 101
+    name                       = "AllowOutboundSameSubnetVms"
+    priority                   = 100
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
+  }
+
+  security_rule {
+    name                       = "AllowInboundSameSubnetVms"
+    priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "*"
@@ -40,17 +59,17 @@ resource "azurerm_network_security_group" "main" {
   }
 
   security_rule {
-    name                       = "DenyInternetInBound"
-    description                = "Deny all inbound traffic outside of the vnet from the Internet"
-    priority                   = 100
+    name                       = "DenyInboundInternet"
+    priority                   = 120
     direction                  = "Inbound"
     access                     = "Deny"
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
     source_address_prefix      = "Internet"
-    destination_address_prefix = "VirtualNetwork"
+    destination_address_prefix = "*"
   }
+
 
   tags = {
     project_name = var.project_name
@@ -140,7 +159,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   name                            = "${var.prefix}-vm-${var.server_names[count.index]}"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
-  size                            = "Standard_D2s_v3"
+  size                            = "Standard_B1s"
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
