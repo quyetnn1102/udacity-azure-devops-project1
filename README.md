@@ -38,7 +38,7 @@ az policy assignment create --name 'tagging-policy' --display-name 'deny-creatio
 ```bash
 az policy assignment list
 ```
-![alt text](images\azpolicyassignmentlist.png)
+![alt text](./images/azpolicyassignmentlist.png)
 
 ### 2.6. :heavy_check_mark: Create a Server Image with Packer
 
@@ -50,14 +50,14 @@ az policy assignment list
 ```bash 
 packer build server.json
 ```
-![alt text](images\packagebuildsuccess.png)
+![alt text](./images/packagebuildsuccess.png)
 
 ✔️ View Images
 
 ```bash 
 az image list
 ```
-![alt text](images\azureimagelist.png)
+![alt text](./images/azureimagelist.png)
 
 ### 2.7. :heavy_check_mark: Create the infrastructure with Terraform Template
 
@@ -97,7 +97,7 @@ terraform init
 terraform plan -out solution.plan
 ```
 
-![alt text](images\terraform_solution_plan.png)
+![alt text](./images/terraform_solution_plan.png)
 
 3. Deploy the infrastructure plan
 
@@ -105,7 +105,7 @@ terraform plan -out solution.plan
 terraform apply "solution.plan"
 ```
 
-![alt text](images\terraform_apply_solution.png)
+![alt text](./images/terraform_apply_solution.png)
 
 4. View infrastructure
 
@@ -113,12 +113,12 @@ terraform apply "solution.plan"
 terraform show
 ```
 
-![alt text](images\terraform_show.png)
+![alt text](./images/terraform_show.png)
 
 
 Azure Portal Azuredevops resource created by terraform
 ✔️ View in Azure Portal
-![alt text](images\azureportaloutput.png)
+![alt text](./images/azureportaloutput.png)
 
 
 5. Destroy infrastructure (when completed) using `clean_resources.sh` to delete all resources except Azuredevops resource group
@@ -136,7 +136,7 @@ done
 ```
 Using `terraform state list` command to skip destroying azurerm_resource_group which lab user can not delete it.
 
-![alt text](images\terraform_destroy_resource.png)
+![alt text](./images/terraform_destroy_resource.png)
 
 
 6. Delete images(when completed)
